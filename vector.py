@@ -12,13 +12,18 @@ class vector(object):
         return vector(self.x+v2.y,self.y+v2.y,self.z+v2.z)
     
     def convert2d(self):
-        return polarVect(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)))
+        if not self.x==0:
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)))
+        else:
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(0)))
 
-class polarVect(object):
-    def __init__(self,r,theta):
+class polarVect2d(object):
+    def __init__(self,r,theta,x=0,y=0):
+        self.poleX=x
+        self.poleY=y
         self.theta=theta
         self.r=r
     def __str__(self):
         return '('+str(self.r)+','+str(self.theta)+')'
-    def convert2d(self):
-        return vector(self.r*math.cos(math.radians(self.theta)),self.r*math.sin(math.radians(self.theta)))
+    def convert(self):
+        return vector(self.r*math.cos(math.radians(self.theta))+self.poleX,self.r*math.sin(math.radians(self.theta))+self.poleY)
