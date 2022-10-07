@@ -1,7 +1,7 @@
 import startWindow,physicsEngine, panda3d, time
 from vector import vector
-speed=5
-mechanicsType,numbBodies,dimensions,x1,y1,z1,xv1,yv1,zv1,mass1,speed1,accel1,radius1,x2,y2,z2,xv2,yv2,zv2,mass2,speed2,accel2,radius2,  x3,y3,z3,  xv3,yv3,zv3,  mass3,speed3,accel3,radius3  ='N',2,2,   20,20,0,  -400,-500,0,  0,speed,0,10,  -20,2,0,  0,4,-70,  0,speed,0,10,  0,0,0,0,0,0,0,0,0,0#startWindow.runStartWindow()
+speed=1
+mechanicsType,numbBodies,dimensions,x1,y1,z1,xv1,yv1,zv1,mass1,speed1,accel1,radius1,x2,y2,z2,xv2,yv2,zv2,mass2,speed2,accel2,radius2,  x3,y3,z3,  xv3,yv3,zv3,  mass3,speed3,accel3,radius3  ='N',1,2,   20,20,0,  -400,-50,0,  0,speed,0,10,  -20,2,0,  0,4,-70,  0,speed,0,10,  0,0,0,0,0,0,0,0,0,0#startWindow.runStartWindow()
 bodyList=[]
 if dimensions==3:
     bodyList.append(physicsEngine.body3d(vector(x1,y1,z1),vector(xv1,yv1,zv1),mass1,speed1,accel1,radius1))
@@ -10,13 +10,31 @@ if dimensions==3:
     if numbBodies==3:
         bodyList.append(physicsEngine.body3d(vector(x3,y3,z3),vector(xv3,yv3,zv3),mass3,speed3,accel3,radius3))
 else:
+    import pygame
+    pygame.init()
+    win=pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+    WIDTH=pygame.display.Info().current_w
+    HEIGHT=pygame.display.Info().current_h
+    clock=pygame.time.Clock()
     bodyList.append(physicsEngine.body2d(vector(x1,y1),vector(xv1,yv1),mass1,speed1,accel1,radius1,1))
     if numbBodies>=2:
         bodyList.append(physicsEngine.body2d(vector(x2,y2),vector(xv2,yv2),mass2,speed2,accel2,radius2,2))
     if numbBodies==3:
         bodyList.append(physicsEngine.body2d(vector(x3,y3),vector(xv3,yv3),mass3,speed3,accel3,radius3))
 run=True
+#for i in range(4):
 while run:
-    for i in bodyList:
-        i.update()
-        #time.sleep(1)
+    if dimensions==2:
+        clock.tick(30)
+        win.fill((255,255,255))
+        for i in bodyList:
+            i.update(win,WIDTH,HEIGHT)
+            #time.sleep(1)
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT or event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE:
+                pygame.quit()
+                exit()
+    else:
+        for i in bodyList:
+            i.update()

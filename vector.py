@@ -13,9 +13,9 @@ class vector(object):
     
     def convert2d(self):
         if not self.x==0:
-            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)))#doesn't work
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)))
         else:
-            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(0)))#doesn't work
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(0)))
 class polarVect2d(object):
     def __init__(self,r,theta,x=0,y=0):
         self.poleX=x
@@ -25,6 +25,4 @@ class polarVect2d(object):
     def __str__(self):
         return '('+str(self.r)+','+str(self.theta)+')'
     def convert(self):
-        return vector(self.r*math.cos(math.radians(self.theta))+self.poleX,self.r*math.sin(math.radians(self.theta))+self.poleY)#doesn't work
-print(vector(3,4).convert2d())
-print(polarVect2d(5,67.5).convert())
+        return vector(self.r*math.cos(math.radians(self.theta))+self.poleX,self.r*math.sin(math.radians(self.theta))+self.poleY)
