@@ -1,7 +1,7 @@
 import startWindow,physicsEngine, panda3d, time
 from vector import vector
-speed=1
-mechanicsType,numbBodies,dimensions,x1,y1,z1,theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2,   20,20,0,  90,  0,speed,0,10,  -20,2,0,  -20,  0,speed,0,10,  0,0,0,0,0,0,0,0#startWindow.runStartWindow()
+speed=5
+mechanicsType,numbBodies,dimensions,x1,y1,z1,theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2,   20,20,0,  45,   2*(10**30)*1000,0,0,10,  -20,2,0,  -135,  5.9722*(10**24)*1000,speed,0,10,  0,0,0,0,0,0,0,0#startWindow.runStartWindow()
 bodyList=[]
 if dimensions==3:
     bodyList.append(physicsEngine.body3d(vector(x1,y1,z1),theta1,mass1,speed1,accel1,radius1))
@@ -26,9 +26,9 @@ run=True
 while run:
     if dimensions==2:
         clock.tick(30)
-        win.fill((255,255,255))
+        win.fill((0,0,0))
         for i in bodyList:
-            i.update(win,WIDTH,HEIGHT)
+            i.update(win,WIDTH,HEIGHT,bodyList)
             #time.sleep(1)
         pygame.display.update()
         for event in pygame.event.get():
