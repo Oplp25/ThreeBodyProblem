@@ -27,7 +27,7 @@ class polarVect2d(object):
     def __add__(self,p2):
         tempSelf=self.convert()
         tempP2=p2.convert()
-        addition=tempSelf+tempP2-vector(self.poleX,self.poleY)-vector(p2.poleX,p2.poleY)
+        addition=tempSelf+tempP2#-vector(self.poleX,self.poleY)-vector(p2.poleX,p2.poleY)
         return addition.convert2d()
     def __sub__(self,p2):
         tempSelf=self.convert()

@@ -1,7 +1,7 @@
 import startWindow,physicsEngine, panda3d, time
 from vector import vector
 speed=1
-mechanicsType,numbBodies,dimensions,x1,y1,z1,theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2,   0,0,0,  45,   10**21,0,0,10,  50,50,0,  0,  1,speed,0,10,  0,0,0,0,0,0,0,0#startWindow.runStartWindow()
+mechanicsType,numbBodies,dimensions,  x1,y1,z1,  theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2,   0,0,0,  0,   10**15,0,0,10,  50,50,0,  0,  1,speed,0,10,  0,0,0,0,0,0,0,0#startWindow.runStartWindow()
 bodyList=[]
 if dimensions==3:
     bodyList.append(physicsEngine.body3d(vector(x1,y1,z1),theta1,mass1,speed1,accel1,radius1))
@@ -22,13 +22,19 @@ else:
     if numbBodies==3:
         bodyList.append(physicsEngine.body2d(vector(x3,y3),theta3,mass3,speed3,accel3,radius3))
 run=True
-#for i in range(4):
-while run:
+bodyList[0].draw(win,WIDTH,HEIGHT)
+bodyList[1].draw(win,WIDTH,HEIGHT)
+for i in range(4):
+#while run:
     if dimensions==2:
-        #clock.tick(600)
-        win.fill((0,0,0))
+        clock.tick(30)
+        #win.fill((0,0,0))
+        pygame.draw.rect(win,(255,0,0),(0,HEIGHT/2+0.5,WIDTH,1))
+        pygame.draw.rect(win,(255,0,0),(WIDTH/2+0.5,0,1,HEIGHT))
         for i in bodyList:
-            i.update(win,WIDTH,HEIGHT,bodyList)
+            time.sleep(0.1)
+            if i.num==2:
+                i.update(win,WIDTH,HEIGHT,bodyList)
         pygame.display.update()
         for event in pygame.event.get():
             if event.type==pygame.QUIT or event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE:
