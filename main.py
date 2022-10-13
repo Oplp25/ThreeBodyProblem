@@ -24,8 +24,8 @@ else:
 run=True
 bodyList[0].draw(win,WIDTH,HEIGHT)
 bodyList[1].draw(win,WIDTH,HEIGHT)
-#for i in range(3):
-while run:
+for i in range(1):
+#while run:
     if dimensions==2:
         clock.tick(60)
         win.fill((0,0,0))

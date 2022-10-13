@@ -20,9 +20,10 @@ class vector(object):
             return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)))#problem is here, math.atan finds the closest value of atan, not the one we want
         elif self.x>0 and self.y<0:
             return polarVect2d(math.sqrt(self.x**2+self.y**2),-math.degrees(math.atan(self.y/self.x)))
-        elif self.x<0 and self.y>0:
-            return polarVect2d(math.sqrt(self.x**2+self.y**2),-(180-math.degrees(math.atan(self.y/self.x))))
         elif self.x<0 and self.y<0:
+            print('HELLO',self,polarVect2d(math.sqrt(self.x**2+self.y**2),-(180-math.degrees(math.atan(self.y/self.x)))))
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),-(180-math.degrees(math.atan(self.y/self.x))))
+        elif self.x<0 and self.y>0:
             return polarVect2d(math.sqrt(self.x**2+self.y**2),180-math.degrees(math.atan(self.y/self.x)))
         elif self.x==0:
             if self.y<0:
@@ -34,6 +35,8 @@ class vector(object):
                 return polarVect2d(-self.x,180)
             else:
                 return polarVect2d(self.x,0)
+        else:
+            raise TypeError(self)
 class polarVect2d(object):
     def __init__(self,r,theta,x=0,y=0):
         self.poleX=x

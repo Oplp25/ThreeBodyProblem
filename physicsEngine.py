@@ -28,9 +28,9 @@ class body2d(body):
                     continue
                 else:
                     distance=math.sqrt((self.pos.x-i.pos.x)**2+(self.pos.y-i.pos.y)**2)#Use Pythagoras' thereom to find the scalar distance between the centers of the two bodies
-                    #print('distance',distance)
+                    print('distance',distance)
                     accelerationScalar=((GRAVITATIONALCONSTANT*i.mass)/(distance**2))#using Newton's second law of motion, F=ma, and his law of universal gravitation, F=(Gm1m2)/(d^2), rearrange to get a=(Gm2)/(d^2)
-                    #print('Acceleration towards body 1',accelerationScalar)
+                    print('Acceleration towards body 1',accelerationScalar)
                     if self.pos.x>i.pos.x and self.pos.y<i.pos.y:
                         angleBetween=math.atan((i.pos.y-self.pos.y)/(self.pos.x-i.pos.x))#finds the angle between the two bodies in radians. Order of subtraction is so that the distances are both positive
                         angleBetween=180-math.degrees(angleBetween)
@@ -62,13 +62,13 @@ class body2d(body):
                             angleBetween=0
                     #print('AngleBetween:    ',angleBetween)
                     print('Ab',self.acceleration)
-                    #print(vector.polarVect2d(accelerationScalar,angleBetween))
+                    print(vector.polarVect2d(accelerationScalar,angleBetween))
                     self.acceleration+=vector.polarVect2d(accelerationScalar,angleBetween,self.pos.x,self.pos.y)#problem is here
                     print('Acceleration',self.acceleration)
         self.velocity+=self.acceleration
-        print(self.num,self.velocity,self.acceleration)
+        print(self.num,self.velocity,self.acceleration,self.pos)
         self.pos+=self.velocity.convert()
-        print(self.num,self.pos)
+        print(self.num,self.velocity,self.acceleration,self.pos)
         #print('Accel angle: ',self.acceleration.theta,'     Velocity angle: ',self.velocity.theta)
         self.draw(win,WIDTH,HEIGHT)
     def draw(self,win,WIDTH,HEIGHT):
