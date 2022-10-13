@@ -17,7 +17,9 @@ class body2d(body):
     def __init__(self,pos,direction,mass,speed,acceleration,radius,num):
         super().__init__(pos,direction,mass,speed,acceleration,radius)
         self.acceleration=vector.polarVect2d(acceleration,self.direction,self.pos.x,self.pos.y)
+        print('Starting Acceleration: ',self.acceleration)
         self.velocity=vector.polarVect2d(self.speed,self.direction)
+        print('Starting Velocity: ',self.velocity)
         self.num=num
     def update(self,win,WIDTH,HEIGHT,bodyList):
         for i in bodyList:#for every other body in the simulation
@@ -26,10 +28,9 @@ class body2d(body):
                     continue
                 else:
                     distance=math.sqrt((self.pos.x-i.pos.x)**2+(self.pos.y-i.pos.y)**2)#Use Pythagoras' thereom to find the scalar distance between the centers of the two bodies
-                    print('distance',distance)
+                    #print('distance',distance)
                     accelerationScalar=((GRAVITATIONALCONSTANT*i.mass)/(distance**2))#using Newton's second law of motion, F=ma, and his law of universal gravitation, F=(Gm1m2)/(d^2), rearrange to get a=(Gm2)/(d^2)
-                    print('Top part of fraction',GRAVITATIONALCONSTANT*i.mass)
-                    print('Acceleration towards body 1',accelerationScalar)
+                    #print('Acceleration towards body 1',accelerationScalar)
                     if self.pos.x>i.pos.x and self.pos.y<i.pos.y:
                         angleBetween=math.atan((i.pos.y-self.pos.y)/(self.pos.x-i.pos.x))#finds the angle between the two bodies in radians. Order of subtraction is so that the distances are both positive
                         angleBetween=180-math.degrees(angleBetween)
@@ -59,12 +60,16 @@ class body2d(body):
                             angleBetween=180
                         else:
                             angleBetween=0
-                    print('AngleBetween:    ',angleBetween)
-                    self.acceleration+=vector.polarVect2d(accelerationScalar,angleBetween)#problem is here
+                    #print('AngleBetween:    ',angleBetween)
+                    print('Ab',self.acceleration)
+                    #print(vector.polarVect2d(accelerationScalar,angleBetween))
+                    self.acceleration+=vector.polarVect2d(accelerationScalar,angleBetween,self.pos.x,self.pos.y)#problem is here
+                    print('Acceleration',self.acceleration)
         self.velocity+=self.acceleration
+        print(self.num,self.velocity,self.acceleration)
         self.pos+=self.velocity.convert()
-        if self.num!=1:
-            print(self.acceleration.theta,'     ',self.velocity.theta)
+        print(self.num,self.pos)
+        #print('Accel angle: ',self.acceleration.theta,'     Velocity angle: ',self.velocity.theta)
         self.draw(win,WIDTH,HEIGHT)
     def draw(self,win,WIDTH,HEIGHT):
         if self.num==1:
