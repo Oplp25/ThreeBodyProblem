@@ -24,7 +24,7 @@ else:
 run=True
 bodyList[0].draw(win,WIDTH,HEIGHT)
 bodyList[1].draw(win,WIDTH,HEIGHT)
-for i in range(1):
+for i in range(4):
 #while run:
     if dimensions==2:
         clock.tick(60)
@@ -34,7 +34,7 @@ for i in range(1):
                 i.update(win,WIDTH,HEIGHT,bodyList)
         bodyList[0].draw(win,WIDTH,HEIGHT)
         pygame.display.update()
-        time.sleep(1)
+        #time.sleep(1)
         for event in pygame.event.get():
             if event.type==pygame.QUIT or event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE:
                 pygame.quit()

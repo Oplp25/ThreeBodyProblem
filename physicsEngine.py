@@ -22,6 +22,7 @@ class body2d(body):
         print('Starting Velocity: ',self.velocity)
         self.num=num
     def update(self,win,WIDTH,HEIGHT,bodyList):
+        print('Update')
         for i in bodyList:#for every other body in the simulation
             if i!=self:#not this body, although this line is unnecessary as the r value would be 0
                 if self.pos.x==i.pos.x and self.pos.y==i.pos.y:
@@ -61,14 +62,14 @@ class body2d(body):
                         else:
                             angleBetween=0
                     #print('AngleBetween:    ',angleBetween)
-                    print('Ab',self.acceleration)
-                    print(vector.polarVect2d(accelerationScalar,angleBetween))
+                    print('Acceleration Before:',self.acceleration)
+                    print('Acceleration change by: ',vector.polarVect2d(accelerationScalar,angleBetween))
                     self.acceleration+=vector.polarVect2d(accelerationScalar,angleBetween,self.pos.x,self.pos.y)#problem is here
-                    print('Acceleration',self.acceleration)
+                    print('Acceleration After',self.acceleration)
         self.velocity+=self.acceleration
-        print(self.num,self.velocity,self.acceleration,self.pos)
+        print('Velocity: ',self.velocity,'Position Before',self.pos)
         self.pos+=self.velocity.convert()
-        print(self.num,self.velocity,self.acceleration,self.pos)
+        print('Position after', self.pos)
         #print('Accel angle: ',self.acceleration.theta,'     Velocity angle: ',self.velocity.theta)
         self.draw(win,WIDTH,HEIGHT)
     def draw(self,win,WIDTH,HEIGHT):
