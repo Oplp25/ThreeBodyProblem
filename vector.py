@@ -8,42 +8,71 @@ class vector(object):
         return '('+str(self.x)+','+str(self.y)+','+str(self.z)+')'
     
     def __add__(self,v2):
-        return vector(self.x+v2.x,self.y+v2.y,self.z+v2.z)
+        return posVector(self.x+v2.x,self.y+v2.y,self.z+v2.z)
     
     def __sub__(self,v2):
-        return vector(self.x-v2.x,self.y-v2.y,self.z-v2.z)
+        return posVector(self.x-v2.x,self.y-v2.y,self.z-v2.z)
     
-    def convert2d(self):#works
-        print('Coords',self)
+    def convert2d(self):
+        pass
+
+class posVector(vector):
+    def __init__(self,x,y,z=0):
+        super().__init__(x,y,z)
+    def convert2d(self):
         if self.x==0 and self.y==0:
-            print('1')
-            return polarVect2d(0,0)
+            return polarVect2d(0,0,self.poleX)
         elif self.x>0 and self.y>0:
-            print('2')
-            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)))#problem is here, math.atan finds the closest value of atan, not the one we want
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)))
         elif self.x>0 and self.y<0:
-            print('3')
             return polarVect2d(math.sqrt(self.x**2+self.y**2),-math.degrees(math.atan(self.y/self.x)))
         elif self.x<0 and self.y<0:
-            print('4')
             return polarVect2d(math.sqrt(self.x**2+self.y**2),-(180-math.degrees(math.atan(self.y/self.x))))
         elif self.x<0 and self.y>0:
-            print('5')
             return polarVect2d(math.sqrt(self.x**2+self.y**2),180-math.degrees(math.atan(self.y/self.x)))
         elif self.x==0:
             if self.y<0:
-                print('6')
                 return polarVect2d(-self.y,-90)
             else:
-                print('7')
                 return polarVect2d(self.y,90)
         elif self.y==0:
             if self.x<0:
-                print('8')
                 return polarVect2d(-self.x,180)
             else:
-                print('9')
                 return polarVect2d(self.x,0)
+        else:
+            raise TypeError(self)
+
+class motVector(vector):
+    def __init__(self, x, y, z=0,pX=0,pY=0,pZ=0):
+        super().__init__(x, y, z)
+        self.poleX=pX
+        self.poleY=pY
+        self.poleZ=pZ
+    def __add__(self,v2):
+        return motVector(self.x+v2.x,self.y+v2.y,self.z+v2.z,self.poleX,self.poleY,self.poleZ)
+
+    def convert2d(self):
+        if self.x==0 and self.y==0:
+            return polarVect2d(0,0,self.poleX,self.poleY)
+        elif self.x>0 and self.y>0:
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)),self.poleX,self.poleY)
+        elif self.x>0 and self.y<0:
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),-math.degrees(math.atan(self.y/self.x)),self.poleX,self.poleY)
+        elif self.x<0 and self.y<0:
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),-(180-math.degrees(math.atan(self.y/self.x))),self.poleX,self.poleY)
+        elif self.x<0 and self.y>0:
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),180-math.degrees(math.atan(self.y/self.x)),self.poleX,self.poleY)
+        elif self.x==0:
+            if self.y<0:
+                return polarVect2d(-self.y,-90,self.poleX,self.poleY)
+            else:
+                return polarVect2d(self.y,90,self.poleX,self.poleY)
+        elif self.y==0:
+            if self.x<0:
+                return polarVect2d(-self.x,180,self.poleX,self.poleY)
+            else:
+                return polarVect2d(self.x,0,self.poleX,self.poleY)
         else:
             raise TypeError(self)
 class polarVect2d(object):
@@ -53,28 +82,20 @@ class polarVect2d(object):
         self.theta=theta
         self.r=r
     def __add__(self,p2):
-        tempSelf=self.convert()
-        tempP2=p2.convert()
-        if self.poleX==p2.poleX and self.poleY==p2.poleY:
-            addition=tempSelf+tempP2-vector(self.poleX,self.poleY)#because else you are adding the pole twice
-        else:
-            raise TypeError
+        tempSelf=self.convertToMot()
+        tempP2=p2.convertToMot()
+        addition=tempSelf+tempP2
         return addition.convert2d()
-    def __sub__(self,p2):
-        tempSelf=self.convert()
-        tempP2=p2.convert()
-        addition=tempSelf-tempP2
     def __str__(self):
         return '('+str(self.r)+','+str(self.theta)+')'
-    def convert(self):
+    def convertToPos(self):
         newX=self.r*math.cos(math.radians(self.theta))
         newY=self.r*math.sin(math.radians(self.theta))
-        print(vector(newX+self.poleX,newY+self.poleY))
-        return vector(newX+self.poleX,newY+self.poleY)
-
-testPolVect=polarVect2d(10,45,50,50)
-testVect=testPolVect.convert()
-newPol=testVect.convert2d()
-print(testPolVect)
-print(testVect)
-print(newPol)
+        return posVector(newX+self.poleX,newY+self.poleY)
+    def convertToMot(self):
+        newX=self.r*math.cos(math.radians(self.theta))
+        newY=self.r*math.sin(math.radians(self.theta))
+        return motVector(newX,newY,0,self.poleX,self.poleY,0)
+vect=polarVect2d(0.9999999056153913,5.4078404950461906e-06,50,50)
+print(vect.convertToMot())
+print(vect.convertToPos())

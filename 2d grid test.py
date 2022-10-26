@@ -2,7 +2,7 @@ import pygame,random, vector
 pygame.init()
 win=pygame.display.set_mode((660,660))
 def drawGrid():
-    win.fill((255,255,255))
+    win.fill((0,255,0))
     for x,y in zip(range(77),range(77)):
         pygame.draw.rect(win,(0,0,0),(x*10,1,1,660))
         pygame.draw.rect(win,(0,0,0),(1,y*10,660,1))
