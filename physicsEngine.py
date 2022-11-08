@@ -19,7 +19,8 @@ class body2d(body):
         self.velocity=vector.polarVect2d(self.speed,self.direction,self.pos.x,self.pos.y)
         self.num=num
     def update(self,win,WIDTH,HEIGHT,bodyList):
-        print('Update')
+        self.velocity=vector.polarVect2d(self.velocity.r,self.velocity.theta,self.pos.x,self.pos.y)
+        newAccel=vector.polarVect2d(0,0,50,50)
         for i in bodyList:#for every other body in the simulation
             if i!=self:#not this body, although this line is unnecessary as the r value would be 0
                 if self.pos.x==i.pos.x and self.pos.y==i.pos.y:#if they are on top of each other
@@ -58,11 +59,11 @@ class body2d(body):
                             angleBetween=180
                         else:
                             angleBetween=0
-                    #print('AngleBetween:    ',angleBetween)
-                    print('Acceleration Before:',self.acceleration)
-                    print('Acceleration change by: ',accelerationScalar,angleBetween)
-                    self.acceleration+=vector.polarVect2d(accelerationScalar,angleBetween,self.pos.x,self.pos.y)#problem is here
-                    print('Acceleration After',self.acceleration)
+                    newAccel+=vector.polarVect2d(accelerationScalar,angleBetween,self.pos.x,self.pos.y)
+        print('Acceleration Before:',self.acceleration)
+        self.acceleration=newAccel
+        print('Acceleration After',self.acceleration)
+        print('Velocity', self.velocity)
         self.velocity+=self.acceleration
         print('velocity poles: ',self.velocity.poleX,self.velocity.poleY)
         print('Velocity: ',self.velocity,'Position Before',self.pos)

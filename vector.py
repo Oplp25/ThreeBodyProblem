@@ -58,9 +58,9 @@ class motVector(vector):
         elif self.x>0 and self.y>0:
             return polarVect2d(math.sqrt(self.x**2+self.y**2),math.degrees(math.atan(self.y/self.x)),self.poleX,self.poleY)
         elif self.x>0 and self.y<0:
-            return polarVect2d(math.sqrt(self.x**2+self.y**2),-math.degrees(math.atan(self.y/self.x)),self.poleX,self.poleY)
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),-abs(math.degrees(math.atan(self.y/self.x))),self.poleX,self.poleY)
         elif self.x<0 and self.y<0:
-            return polarVect2d(math.sqrt(self.x**2+self.y**2),-(180-math.degrees(math.atan(self.y/self.x))),self.poleX,self.poleY)
+            return polarVect2d(math.sqrt(self.x**2+self.y**2),-abs(180-math.degrees(math.atan(self.y/self.x))),self.poleX,self.poleY)
         elif self.x<0 and self.y>0:
             return polarVect2d(math.sqrt(self.x**2+self.y**2),180-math.degrees(math.atan(self.y/self.x)),self.poleX,self.poleY)
         elif self.x==0:
@@ -96,6 +96,11 @@ class polarVect2d(object):
         newX=self.r*math.cos(math.radians(self.theta))
         newY=self.r*math.sin(math.radians(self.theta))
         return motVector(newX,newY,0,self.poleX,self.poleY,0)
-vect=polarVect2d(0.9999999056153913,5.4078404950461906e-06,50,50)
+vect=polarVect2d(0.13348,-135.0,50,50)
+newVect=polarVect2d(1,0,50,50)
 print(vect.convertToMot())
 print(vect.convertToPos())
+print(newVect.convertToMot())
+print(newVect.convertToPos())
+x=vect+newVect
+print(x,x.poleX,x.poleY)
