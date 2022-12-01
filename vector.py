@@ -96,11 +96,12 @@ class polarVect2d(object):
         newX=self.r*math.cos(math.radians(self.theta))
         newY=self.r*math.sin(math.radians(self.theta))
         return motVector(newX,newY,0,self.poleX,self.poleY,0)
-vect=polarVect2d(0.13348,-135.0,50,50)
-newVect=polarVect2d(1,0,50,50)
-print(vect.convertToMot())
-print(vect.convertToPos())
-print(newVect.convertToMot())
-print(newVect.convertToPos())
-x=vect+newVect
-print(x,x.poleX,x.poleY)
+if __name__=='__main__':
+    vect=polarVect2d(0.13348,-135.0,50,50)
+    newVect=polarVect2d(1,0,50,50)
+    print(vect.convertToMot())
+    print(vect.convertToPos())
+    print(newVect.convertToMot())
+    print(newVect.convertToPos())
+    x=vect+newVect
+    print(x,x.poleX,x.poleY)

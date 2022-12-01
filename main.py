@@ -1,7 +1,14 @@
-import startWindow,physicsEngine, panda3d, time
+import startWindow,physicsEngine, panda3d, time, math,os
 from vector import posVector
+
+#distance 1 pixel = 10,000,000 km = 10 GM
+#time 1 tick = 1 day
+#speed measured in km/s
+#mass measured in kg
+#Acceleration measured in km/s^2
+#radii measured in km, but drawn to a scale of 1:1000, otherwise they would not be seen. Sun drawn to 1:100000
 speed=0
-mechanicsType,numbBodies,dimensions,  x1,y1,z1,  theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2,   0,0,0,  0,   10**12,0,0,10,  50,50,0,  0,  1,speed,0,10,  0,0,0,0,0,0,0,0#startWindow.runStartWindow()
+mechanicsType,numbBodies,dimensions,  x1,y1,z1,  theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2, 0,0,0, 0, 2*(10**30),0,0, 6957,    150* math.sqrt(2)/2, 150* math.sqrt(2)/2,0, 0, 6*(10**24),29.8,0, 6371 ,0,0,0,0,0,0,0,0 #sun,earth, nothing #startWindow.runStartWindow()
 bodyList=[]
 if dimensions==3:
     bodyList.append(physicsEngine.body3d(posVector(x1,y1,z1),theta1,mass1,speed1,accel1,radius1))
@@ -22,23 +29,24 @@ else:
     if numbBodies==3:
         bodyList.append(physicsEngine.body2d(posVector(x3,y3),theta3,mass3,speed3,accel3,radius3))
 run=True
+os.system('cls')
 bodyList[0].draw(win,WIDTH,HEIGHT)
 bodyList[1].draw(win,WIDTH,HEIGHT)
 pygame.display.update()
 step=1
 #for i in range(1):
 while run:
-    print('\nStep ',step)
-    print('\n')
     if dimensions==2:
+        time.sleep(0.1)
+        print('\nStep ',step)
+        print('\n')
         clock.tick(60)
-        win.fill((0,0,0))
+        #win.fill((0,0,0))
         for i in bodyList:
             if i.num==2:
                 i.update(win,WIDTH,HEIGHT,bodyList)
         bodyList[0].draw(win,WIDTH,HEIGHT)
         pygame.display.update()
-        time.sleep(0.1)
         for event in pygame.event.get():
             if event.type==pygame.QUIT or event.type==pygame.KEYDOWN and event.key==pygame.K_ESCAPE:
                 pygame.quit()
