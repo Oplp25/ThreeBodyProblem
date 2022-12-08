@@ -26,7 +26,7 @@ class body2d(body):
                 if self.pos.x==i.pos.x and self.pos.y==i.pos.y:#if they are on top of each other
                     continue
                 else:
-                    
+
                     distance=math.sqrt((self.pos.x-i.pos.x)**2+(self.pos.y-i.pos.y)**2)#Use Pythagoras' thereom to find the scalar distance between the centers of the two bodies
                     distance=distance*(10**9)#convert to m
                     print('distance',str(distance)[0:3],str(distance)[3:6],str(distance)[6:9],str(distance)[9:],'m')
