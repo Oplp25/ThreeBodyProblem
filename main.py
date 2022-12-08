@@ -1,7 +1,7 @@
 import startWindow,physicsEngine, panda3d, time, math,os
 from vector import posVector
 
-#distance 1 pixel = 10,000,000 km = 10 GM
+#distance 1 pixel = 1,000,000 km = 1 GM
 #time 1 tick = 1 day
 #speed measured in km/s
 #mass measured in kg
@@ -37,7 +37,7 @@ step=1
 #for i in range(1):
 while run:
     if dimensions==2:
-        time.sleep(0.5)
+        #time.sleep(0.5)
         print('\nStep ',step)
         print('\n')
         clock.tick(60)

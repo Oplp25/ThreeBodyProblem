@@ -1,5 +1,5 @@
 import math,vector,pygame
-GRAVITATIONALCONSTANT=0.0000000006674
+GRAVITATIONALCONSTANT=0.00000000006743#6.674*10^-11
 class body(object):
     def __init__(self,pos,direction,mass,speed,acceleration,radius):
         self.direction=direction
@@ -26,9 +26,12 @@ class body2d(body):
                 if self.pos.x==i.pos.x and self.pos.y==i.pos.y:#if they are on top of each other
                     continue
                 else:
-                    distance=math.sqrt((self.pos.x-i.pos.x)**2+(self.pos.y-i.pos.y)**2)*10000000#Use Pythagoras' thereom to find the scalar distance between the centers of the two bodies
-                    print('distance',distance)
-                    accelerationScalar=((GRAVITATIONALCONSTANT*i.mass)/(distance**2))/100#using Newton's second law of motion, F=ma, and his law of universal gravitation, F=(Gm1m2)/(d^2), rearrange to get a=(Gm2)/(d^2)
+                    
+                    distance=math.sqrt((self.pos.x-i.pos.x)**2+(self.pos.y-i.pos.y)**2)#Use Pythagoras' thereom to find the scalar distance between the centers of the two bodies
+                    distance=distance*(10**9)#convert to m
+                    print('distance',str(distance)[0:3],str(distance)[3:6],str(distance)[6:9],str(distance)[9:],'m')
+                    accelerationScalar=((GRAVITATIONALCONSTANT*i.mass)/(distance**2))#using Newton's second law of motion, F=ma, and his law of universal gravitation, F=(Gm1m2)/(d^2), rearrange to get a=(Gm2)/(d^2)
+                    accelerationScalar=accelerationScalar/1000#convert to km/s^2
                     print('Acceleration towards body 1',accelerationScalar)
 
                     #angle
@@ -65,13 +68,11 @@ class body2d(body):
         self.acceleration=newAccel
         print('Acceleration After',self.acceleration)
         print('Velocity', self.velocity)
-        print('old velocity poles: ',self.velocity.poleX,self.velocity.poleY)
         self.velocity+=self.acceleration
-        print('new velocity poles: ',self.velocity.poleX,self.velocity.poleY)
-        print('Velocity: ',self.velocity,'Position Before',self.pos)
-        self.velocity.r=self.velocity.r#*86400
-        self.pos=self.velocity.convertToPos()
-        self.velocity.r=self.velocity.r#/86400
+        print('New velocity: ',self.velocity,'Position Before',self.pos)
+        self.velocity.r=(self.velocity.r/(10**6))*86400#convert velocity to gigameters per day
+        self.pos=self.velocity.convertToPos()#pos is in gigameters
+        self.velocity.r=self.velocity.r*(10**6)/86400#convert back to km/s
         print('Position after', self.pos)
         #print('Accel angle: ',self.acceleration.theta,'     Velocity angle: ',self.velocity.theta)
         self.draw(win,WIDTH,HEIGHT)
