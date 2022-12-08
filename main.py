@@ -8,7 +8,7 @@ from vector import posVector
 #Acceleration measured in km/s^2
 #radii measured in km, but drawn to a scale of 1:1000, otherwise they would not be seen. Sun drawn to 1:100000
 speed=0
-mechanicsType,numbBodies,dimensions,  x1,y1,z1,  theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2, 0,0,0, 0, 2*(10**30),0,0, 6957,    150* math.sqrt(2)/2, 150* math.sqrt(2)/2,0, 0, 6*(10**24),29.8,0, 6371 ,0,0,0,0,0,0,0,0 #sun,earth, nothing #startWindow.runStartWindow()
+mechanicsType,numbBodies,dimensions,  x1,y1,z1,  theta1,mass1,speed1,accel1,radius1,x2,y2,z2,theta2,mass2,speed2,accel2,radius2,  x3,y3,z3,  theta3,  mass3,speed3,accel3,radius3  ='N',2,2, 0,0,0, 0, 2*(10**30),0,0, 6957,    150* math.sqrt(2)/2, 150* math.sqrt(2)/2,0, -45, 6*(10**24),29.8,0, 6371 ,0,0,0,0,0,0,0,0 #sun,earth, nothing #startWindow.runStartWindow()
 bodyList=[]
 if dimensions==3:
     bodyList.append(physicsEngine.body3d(posVector(x1,y1,z1),theta1,mass1,speed1,accel1,radius1))
@@ -37,7 +37,7 @@ step=1
 #for i in range(1):
 while run:
     if dimensions==2:
-        time.sleep(0.1)
+        time.sleep(0.5)
         print('\nStep ',step)
         print('\n')
         clock.tick(60)

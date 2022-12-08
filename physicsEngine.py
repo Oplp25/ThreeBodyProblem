@@ -2,7 +2,7 @@ import math,vector,pygame
 GRAVITATIONALCONSTANT=0.0000000006674
 class body(object):
     def __init__(self,pos,direction,mass,speed,acceleration,radius):
-        self.direction=-direction
+        self.direction=direction
         self.pos=pos
         self.mass=mass
         self.speed=speed
@@ -28,7 +28,7 @@ class body2d(body):
                 else:
                     distance=math.sqrt((self.pos.x-i.pos.x)**2+(self.pos.y-i.pos.y)**2)*10000000#Use Pythagoras' thereom to find the scalar distance between the centers of the two bodies
                     print('distance',distance)
-                    accelerationScalar=((GRAVITATIONALCONSTANT*i.mass)/(distance**2))/1000#using Newton's second law of motion, F=ma, and his law of universal gravitation, F=(Gm1m2)/(d^2), rearrange to get a=(Gm2)/(d^2)
+                    accelerationScalar=((GRAVITATIONALCONSTANT*i.mass)/(distance**2))/100#using Newton's second law of motion, F=ma, and his law of universal gravitation, F=(Gm1m2)/(d^2), rearrange to get a=(Gm2)/(d^2)
                     print('Acceleration towards body 1',accelerationScalar)
 
                     #angle
