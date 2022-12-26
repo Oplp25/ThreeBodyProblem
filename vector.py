@@ -89,12 +89,12 @@ class polarVect2d(object):
     def __str__(self):
         return '('+str(self.r)+','+str(self.theta)+')'
     def convertToPos(self):
-        newX=self.r*math.cos(math.radians(self.theta))
-        newY=self.r*math.sin(math.radians(self.theta))
+        newX=self.r*math.cos(math.radians(self.theta))#wrong
+        newY=self.r*math.sin(math.radians(self.theta))#wrong
         return posVector(newX+self.poleX,newY+self.poleY)
     def convertToMot(self):
-        newX=self.r*math.cos(math.radians(self.theta))
-        newY=self.r*math.sin(math.radians(self.theta))
+        newX=self.r*math.cos(math.radians(self.theta))#wrong
+        newY=self.r*math.sin(math.radians(self.theta))#wrong
         return motVector(newX,newY,0,self.poleX,self.poleY,0)
 if __name__=='__main__':
     vect=polarVect2d(0.13348,-135.0,50,50)

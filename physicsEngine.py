@@ -63,7 +63,7 @@ class body2d(body):
                             angleBetween=180
                         else:
                             angleBetween=0
-                    newAccel+=vector.polarVect2d(accelerationScalar,angleBetween,self.pos.x,self.pos.y)
+                    newAccel=newAccel+vector.polarVect2d(accelerationScalar,angleBetween,self.pos.x,self.pos.y)
         print('Acceleration Before:',self.acceleration)
         self.acceleration=newAccel
         print('Acceleration After',self.acceleration)
