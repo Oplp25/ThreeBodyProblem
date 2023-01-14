@@ -43,7 +43,7 @@ class posVector(vector):
         else:
             raise TypeError(self)
 
-class motVector(vector):
+class motVector(vector):#Motion Vector
     def __init__(self, x, y, z=0,pX=0,pY=0,pZ=0):
         super().__init__(x, y, z)
         self.poleX=pX
